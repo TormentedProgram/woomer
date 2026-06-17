@@ -2,7 +2,7 @@ use std::{env, process};
 
 use libwayshot::WayshotConnection;
 use raylib::{
-    ffi::{Image as FfiImage, SetWindowMonitor, ToggleFullscreen},
+    ffi::{Image as FfiImage, SetWindowMonitor},
     prelude::*,
 };
 const SPOTLIGHT_TINT: Color = Color::new(0x00, 0x00, 0x00, 190);
@@ -76,9 +76,9 @@ fn main() {
         .position(|o| o.name == selected_output.name)
         .expect("Monitor not found");
 
-    unsafe {
-        ToggleFullscreen();
-    }
+    //unsafe {
+        //ToggleFullscreen();
+    //}
 
     unsafe {
         SetWindowMonitor(idx as i32);
@@ -185,7 +185,7 @@ fn main() {
         if delta_scale.abs() > 0.5 {
             let p0 = scale_pivot / rl_camera.zoom;
             rl_camera.zoom = (rl_camera.zoom as f64 + delta_scale * rl.get_frame_time() as f64 * rl_camera.zoom as f64)
-                .clamp(0.3, 10.) as f32;
+                .clamp(0.2, 10.) as f32;
             let p1 = scale_pivot / rl_camera.zoom;
             rl_camera.target += p0 - p1;
             delta_scale -= delta_scale * rl.get_frame_time() as f64 * 4.0
